@@ -11,25 +11,23 @@ window = sg.Window('Converter', layout=layout)
 def is_number(num):
     try:
         float(num)
-        is_num = True
     except ValueError:
         return False
     return True
 
 
 while True:
-    ev, vals = window.read()
+    event, values = window.read()
 
-    if ev == sg.WINDOW_CLOSED:
+    if event == sg.WINDOW_CLOSED:
         break
 
-    if ev == '-CONVERT-':
-        input = vals['-INPUT-']
-        print(input)
+    elif event == '-CONVERT-':
+        input = values['-INPUT-']
         if not is_number(input):
             output_str = 'Please enter a number.'
         else:
-            match vals['-UNITS-']:
+            match values['-UNITS-']:
                 case 'km to miles':
                     output = round(float(input) * 0.6214, 2)
                     output_str = f'{input} km = {output} miles'
@@ -37,7 +35,7 @@ while True:
                     output = round(float(input) * 2.20462, 2)
                     output_str = f'{input} kg = {output} pounds'
                 case 'sec to min':
-                    output = float(input) / 60
+                    output = round(float(input) / 60, 2)
                     output_str = f'{input} seconds = {output} minutes'
 
         window['-RESULT-'].update(output_str)
