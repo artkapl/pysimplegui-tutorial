@@ -8,6 +8,15 @@ layout = [
 
 window = sg.Window('Converter', layout=layout)
 
+def is_number(num):
+    try:
+        float(num)
+        is_num = True
+    except ValueError:
+        return False
+    return True
+
+
 while True:
     ev, vals = window.read()
 
@@ -17,7 +26,7 @@ while True:
     if ev == '-CONVERT-':
         input = vals['-INPUT-']
         print(input)
-        if not input.isnumeric():
+        if not is_number(input):
             output_str = 'Please enter a number.'
         else:
             match vals['-UNITS-']:
